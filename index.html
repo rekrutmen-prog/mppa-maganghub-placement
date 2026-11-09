@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPPA - Placement Location Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mppaRed: '#E2144D',
+                        mppaBlue: '#0094F5',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-200 min-h-screen flex flex-col items-center justify-start text-gray-800 m-0 p-0">
+
+    <!-- WRAPPER UTAMA (Ukuran pas di tengah, sejajar/segaris di dalam bingkai HP) -->
+    <div class="w-full max-w-[768px] bg-gray-50 min-h-screen flex flex-col justify-between shadow-2xl relative">
+
+        <!-- MAIN CONTENT WRAPPER -->
+        <div class="w-full">
+
+            <!-- HEADER BANNER UTAMA -->
+            <header class="w-full bg-white shadow-sm">
+                <div class="w-full">
+                    <img src="assets/images/banner-utama.png" alt="PT Matahari Putra Prima Tbk Banner" class="w-full h-auto object-cover shadow-md">
+                </div>
+            </header>
+
+            <!-- SUB-HEADER BANNER: MagangHub -->
+            <div class="w-full bg-mppaBlue shadow-inner py-4 px-5 text-white">
+                <div class="flex flex-row items-center justify-between gap-2">
+                    <div class="flex items-center bg-white text-gray-900 px-3 py-2 rounded-xl shadow-sm shrink-0">
+                        <img src="assets/images/logo-maganghub.png" alt="MagangHub" class="h-6 sm:h-8 object-contain">
+                    </div>
+                    <div class="text-right">
+                        <h2 class="text-sm sm:text-lg font-bold tracking-wide leading-tight">Batch 3 Angkatan 2 (2026)</h2>
+                        <p class="text-[10px] sm:text-xs text-blue-100">Placement Location Guide</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN INTERACTIVE CONTENT AREA -->
+            <main class="w-full px-6 py-8 relative z-10">
+                
+                <!-- LOCATION SELECTOR SECTION -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center mb-8 relative z-20">
+                    <label for="locationFilter" class="block text-base sm:text-lg font-bold text-gray-800 mb-3 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-location-dot text-mppaBlue text-lg"></i>
+                        <span>Select Your Location</span>
+                    </label>
+                    <div class="w-full relative max-w-lg mx-auto z-30">
+                        <select id="locationFilter" class="w-full appearance-none bg-gray-50 border border-gray-300 hover:border-mppaBlue focus:border-mppaBlue focus:ring-2 focus:ring-blue-100 rounded-xl px-4 py-3.5 pr-10 text-gray-700 font-medium text-base transition outline-none cursor-pointer shadow-sm relative z-30">
+                            <option value="" disabled selected>-- Pilih Lokasi Penempatan --</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500 z-30">
+                            <i class="fa-solid fa-chevron-down text-base"></i>
+                        </div>
+                    </div>
+                    <p id="helperText" class="text-xs text-gray-400 mt-3">Pilih wilayah untuk menemukan lokasi penempatan kamu.</p>
+                </div>
+
+                <!-- RESULTS SECTION -->
+                <div id="resultsContainer" class="hidden fade-in">
+                    
+                    <!-- Action Prompt Divider -->
+                    <div class="w-full border border-mppaBlue/30 bg-blue-50/50 rounded-xl py-3 px-4 text-center mb-6 shadow-xs">
+                        <p class="text-mppaBlue font-semibold text-sm sm:text-base flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-hand-pointer animate-bounce"></i>
+                            <span>Find Your Company Placement!</span>
+                        </p>
+                    </div>
+
+                    <!-- Cards List -->
+                    <div id="jobsList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Cards injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div id="emptyState" class="text-center py-14">
+                    <div class="w-16 h-16 bg-blue-50 text-mppaBlue rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3 class="text-gray-700 font-semibold text-base">Belum ada lokasi yang dipilih</h3>
+                    <p class="text-gray-400 text-sm mt-1">Silakan pilih wilayah pada dropdown di atas.</p>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- FOOTER SECTION -->
+        <footer class="w-full bg-mppaRed text-white py-6 px-6 shadow-lg mt-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+                
+                <!-- Left Info Links -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-5 text-sm font-medium">
+                    <a href="https://www.mppa.co.id" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:opacity-85 transition">
+                        <i class="fa-solid fa-globe text-base"></i>
+                        <span>mppa.co.id</span>
+                    </a>
+                    <a href="https://www.instagram.com/mppa.careers/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:opacity-85 transition">
+                        <i class="fa-brands fa-instagram text-base"></i>
+                        <span>careers.mppa</span>
+                    </a>
+                    <a href="https://www.linkedin.com/company/matahari-putra-prima-tbk/posts/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:opacity-85 transition">
+                        <i class="fa-brands fa-linkedin text-base"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+
+                <!-- Right Logo Group -->
+                <div>
+                    <img src="assets/images/mppa putih.png" alt="MPPA" class="h-7 object-contain">
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+<!-- DATA LOKASI PENEMPATAN: 73 lokasi; Google Maps menggunakan pencarian nama toko + landmark, bukan koordinat terverifikasi. -->
+    <script>
+        const internshipData = [
+            { id: 1, location: "Jabodetabek", companyName: "Hypermart Puri Indah", locationDetail: "Puri Indah Mall, Jakarta Barat, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-puri-indah-4976e5fa-ee69-40db-9c13-7f1c4959de53" },
+            { id: 2, location: "Jabodetabek", companyName: "Hypermart Cyberpark Karawaci", locationDetail: "Cyberpark Karawaci, Kota Tangerang, Banten", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk.-hypermart-cyberpark-lippo-karawaci-utara-6af5a774-84e8-40b9-9031-f57e577290ed" },
+            { id: 3, location: "Jabodetabek", companyName: "Hypermart Cianjur", locationDetail: "Mayofield Mall, Kabupaten Cianjur, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima,-tbk-hypermart-cianjur-82ee816f-e8d1-441f-91eb-471ccdbc6d60" },
+            { id: 4, location: "Jabodetabek", companyName: "Hypermart Serang", locationDetail: "Mall of Serang, Kota Serang, Banten", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima,-tbk-hypermart-serang-01a0226e-3384-704b-8c9a-baf159e6990e" },
+            { id: 5, location: "Jabodetabek", companyName: "Hypermart Gading Serpong", locationDetail: "Jl. Boulevard Gading Golf, Kabupaten Tangerang, Banten", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-gading-serpong-cae653a9-cc03-48c3-b0b6-e9858c6d7220" },
+            { id: 6, location: "Jabodetabek", companyName: "Hypermart Kemang", locationDetail: "Lippo Mall Kemang, Jakarta Selatan, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/hypermart-kemang-village-019f26c2-9a98-71bd-a699-be9a64b5a51c" },
+            { id: 8, location: "Sumatera", companyName: "Hypermart Bengkulu", locationDetail: "Bengkulu Indah Mall, Kota Bengkulu, Bengkulu", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-bengkulu-019f220a-f45c-7000-84bb-91f5f5e97a1e" },
+            { id: 9, location: "Jawa Tengah & DIY", companyName: "Hypermart Pekalongan", locationDetail: "Plaza Pekalongan, Kota Pekalongan, Jawa Tengah", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-f6333e26-7844-489c-b313-1eda89b55ab8" },
+            { id: 10, location: "Sumatera", companyName: "Hypermart Nagoya Batam", locationDetail: "Nagoya Hill Mall, Kota Batam, Kepulauan Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-nagoya-hill--019f16e4-7e87-72e0-8f91-d02530b92025" },
+            { id: 11, location: "Kalimantan", companyName: "Hypermart Loktabat Banjarbaru", locationDetail: "Jl. Ahmad Yani, Kota Banjarbaru, Kalimantan Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/hypermart-banjarbaru-019f230d-21f7-7060-bba1-6b4f8b374dce" },
+            { id: 12, location: "Sumatera", companyName: "Hypermart SKA Pekanbaru", locationDetail: "Mall SKA, Kota Pekanbaru, Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-hypermart-ska-pekanbaru-019f2723-782e-7060-872f-19f86160df55" },
+            { id: 13, location: "Jabodetabek", companyName: "Hypermart Gajah Mada", locationDetail: "Gajah Mada Plaza, Jakarta Pusat, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-gajah-mada-019f2101-28e9-7324-a368-bb292931bb90" },
+            { id: 14, location: "Sumatera", companyName: "Hypermart Mega Mall Batam", locationDetail: "Mega Mall Batam Centre, Kota Batam, Kepulauan Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima-hypermart-mega-mall-batam-73fab4ed-a615-4a79-a7fd-1f4658316087" },
+            { id: 15, location: "Sumatera", companyName: "Foodmart Basko Padang", locationDetail: "Basko Grand Mall, Kota Padang, Sumatera Barat", brandType: "Foodmart", badgeColor: "bg-green-50 text-green-700 border-green-200", logoPath: "assets/images/foodmart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima-tbk--foodmart-basko-padang--019f21e0-7b2a-702d-b5f5-886a6917be02" },
+            { id: 16, location: "Kalimantan", companyName: "Hypermart Pontianak", locationDetail: "Ayani Megamall, Kota Pontianak, Kalimantan Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/hypermart-pontianak-019f262e-4ae1-7311-be25-9bc49a77630f" },
+            { id: 17, location: "Sumatera", companyName: "Hypermart Binjai", locationDetail: "Binjai Supermall, Kota Binjai, Sumatera Utara", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-binjai-019f1840-b056-7377-b2b1-544ceb8e4805" },
+            { id: 18, location: "Sumatera", companyName: "Hypermart Dumai", locationDetail: "Jl. Ahmad Yani, Kota Dumai, Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-01a158a5-e37b-732d-949c-ad8d73e73f8e" },
+            { id: 19, location: "Sumatera", companyName: "Hypermart Bangka Trade Center", locationDetail: "Bangka Trade Center, Kota Pangkalpinang, Bangka Belitung", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima,-tbk--hypermart-bangka-trade-center--019f3600-f7f7-702a-af40-4bc9eada142c" },
+            { id: 20, location: "Papua", companyName: "Hypermart Sorong", locationDetail: "Jl. Basuki Rahmat, Kota Sorong, Papua Barat Daya", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-5e229ab3-552d-46c6-8dbe-0425f989fb0d" },
+            { id: 21, location: "Sumatera", companyName: "Hypermart Palembang Square 2", locationDetail: "Palembang Square Mall, Kota Palembang, Sumatera Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-palembang-square--019f3762-ae58-71d7-8dbe-33f66205e2d7" },
+            { id: 22, location: "Kalimantan", companyName: "Hypermart Bigmall Samarinda", locationDetail: "Big Mall Samarinda, Kota Samarinda, Kalimantan Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,tbk--hypermart-bigmall--019f2310-6da5-7351-b1a3-9dec64c994c0" },
+            { id: 25, location: "NTT", companyName: "Hypermart Kupang El Tari", locationDetail: "Lippo Plaza Kupang, Kota Kupang, Nusa Tenggara Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-5f8917ad-bece-4e33-a99e-18fa42fd3b79" },
+            { id: 26, location: "Sumatera", companyName: "Hypermart Lubuk Linggau", locationDetail: "Lippo Plaza Lubuklinggau, Kota Lubuklinggau, Sumatera Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima-tbk-hypermart-lubuklinggau--019f214f-e9ee-717b-b27c-93b9d5d7bde5" },
+            { id: 27, location: "Sumatera", companyName: "Hypermart Lippo Plaza Jambi", locationDetail: "Lippo Plaza Jambi, Kota Jambi, Jambi", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-okh-jambi-019f2756-38f8-730d-a087-85c95346f7d8" },
+            { id: 28, location: "Sumatera", companyName: "Hypermart Tanjung Pinang", locationDetail: "Tanjungpinang City Centre, Kota Tanjungpinang, Kepulauan Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-tbk-pt-hypermart-tanjungpinang-019f170c-0946-7295-abc7-ce993b31157e" },
+            { id: 29, location: "Jabodetabek", companyName: "Hypermart Citra Raya", locationDetail: "Citra Raya, Kabupaten Tangerang, Banten", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-citra-raya--cb6157bc-0f90-4b08-b22b-225758ec71de" },
+            { id: 30, location: "Jabodetabek", companyName: "Primo Cilandak Town Square", locationDetail: "Cilandak Town Square, Jakarta Selatan, DKI Jakarta", brandType: "Primo", badgeColor: "bg-amber-50 text-amber-700 border-amber-200", logoPath: "assets/images/primo.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-foodmart-primo-cilandak-town-square-b10fb381-293a-470a-800d-56e5962bfa8e" },
+            { id: 31, location: "Jabodetabek", companyName: "Hypermart Metropolis", locationDetail: "Metropolis Town Square, Kota Tangerang, Banten", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima.tbk-hypermart-metropolis-f67d8dd3-3b49-4823-b3da-2fde3ffc53fe" },
+            { id: 32, location: "Jabodetabek", companyName: "Hypermart Ekalokasari", locationDetail: "Lippo Plaza Ekalokasari, Kota Bogor, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima,-tbk-hypermart-ekalokasari-bogopr-019f2746-4698-70ae-88d1-242ce36ca6bd" },
+            { id: 33, location: "Maluku", companyName: "Hypermart Ternate", locationDetail: "Jl. Sultan M. Djabir Sjah, Kota Ternate, Maluku Utara", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk-488-hypermart-ternate-019f179a-061c-7342-a7a6-dc6e21fb843e" },
+            { id: 34, location: "Kalimantan", companyName: "Hyfresh Kapuas", locationDetail: "Citimall Kuala Kapuas, Kabupaten Kapuas, Kalimantan Tengah", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk--562-hyfresh-kapuas--019f231f-7bf9-73b7-a37c-950ebc1f0b96" },
+            { id: 35, location: "Jabodetabek", companyName: "Hyfresh Bojongsari", locationDetail: "Jl. Raya Bojongsari, Kota Depok, Jawa Barat", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hyfresh-bojongsari-019f2753-6e42-737a-99cb-273c56f8b47d" },
+            { id: 36, location: "Jabodetabek", companyName: "Hypermart Pluit", locationDetail: "Pluit Village, Jakarta Utara, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-2badcbc6-73ea-42fe-9de1-7125978d31c0" },
+            { id: 37, location: "Bali", companyName: "Primo Lippo Kuta", locationDetail: "Lippo Mall Kuta Icon, Kabupaten Badung, Bali", brandType: "Primo", badgeColor: "bg-amber-50 text-amber-700 border-amber-200", logoPath: "assets/images/primo.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima-tbk.primo-supermarket-kuta-icon-019f5ad9-8952-706d-be91-55113585b1d2" },
+            { id: 38, location: "Bali", companyName: "Foodmart Sunset Point", locationDetail: "Sunset Point Shopping Centre, Kabupaten Badung, Bali", brandType: "Foodmart", badgeColor: "bg-green-50 text-green-700 border-green-200", logoPath: "assets/images/foodmart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-1a4b8693-eb08-4f9a-b48f-9007de1e0b8a" },
+            { id: 39, location: "Kalimantan", companyName: "Hypermart Banjarmasin", locationDetail: "Duta Mall, Kota Banjarmasin, Kalimantan Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/hypermart-banjarmasin-019f2300-b97c-7065-91c5-de5e99d15011" },
+            { id: 40, location: "Kalimantan", companyName: "Hypermart Ketapang", locationDetail: "Citimall Ketapang, Kabupaten Ketapang, Kalimantan Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/hypermart-ketapang-019f2325-af00-729d-944b-58c155f86e9d" },
+            { id: 41, location: "Jawa Timur", companyName: "Hypermart Madiun", locationDetail: "Plaza Madiun, Kota Madiun, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima,-tbk--hypermart-madiun--1a574f9b-f311-4226-8e21-d793d043776f" },
+            { id: 42, location: "Jawa Timur", companyName: "Hypermart Gressmall", locationDetail: "Gressmall, Kabupaten Gresik, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-hypermart-gressmall-6e32656a-f925-4d31-935b-78ead323117a" },
+            { id: 43, location: "Sulawesi", companyName: "Hypermart Baubau", locationDetail: "Lippo Plaza Buton, Kota Baubau, Sulawesi Tenggara", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk-408-hypermart-baubau-cbe1cd93-52f0-4157-a469-9977b3c40b1f" },
+            { id: 44, location: "Jawa Barat", companyName: "Hypermart Bandung Indah Plaza", locationDetail: "Bandung Indah Plaza, Kota Bandung, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk.-hypermart-bip-2767aa41-9738-4d69-9646-acfc604f66d9" },
+            { id: 45, location: "Jawa Barat", companyName: "Hypermart Metro Indah Mall", locationDetail: "Metro Indah Mall, Kota Bandung, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk.-hypermart-mtc-3debc025-5ec4-471f-b379-8a921c7315a1" },
+            { id: 46, location: "Jawa Timur", companyName: "Hypermart Royal Plaza Surabaya", locationDetail: "Royal Plaza, Kota Surabaya, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima-tbk.-hypermart-royal-plasa-surabaya-d8cd71e1-efca-446b-8f3b-ed90d63d31bf" },
+            { id: 47, location: "Jawa Barat", companyName: "Hypermart Cirebon", locationDetail: "Cirebon Super Block Mall, Kota Cirebon, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-cirebon--d2836d0b-0287-4bd6-918a-fd39fc186b56" },
+            { id: 48, location: "Jabodetabek", companyName: "Hypermart Daan Mogot", locationDetail: "Mall Daan Mogot, Jakarta Barat, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-daan-mogot--c3730195-8513-4ffb-bede-5035b50a622d" },
+            { id: 49, location: "Jawa Tengah & DIY", companyName: "Hypermart Solo Square", locationDetail: "Solo Square, Kota Surakarta, Jawa Tengah", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk--hypermart-solo-square--bafaface-0738-4e3a-b53d-be7f0e07fc34" },
+            { id: 50, location: "NTT", companyName: "Hypermart Kupang Bundaran PU", locationDetail: "Jl. El Tari (Bundaran PU), Kota Kupang, Nusa Tenggara Timur", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk.-hypermart-kupang-bundaran-pu-8d052b1a-2d3b-487e-86d8-7f29ab8f0b3d" },
+            { id: 51, location: "Jabodetabek", companyName: "Hypermart CitraGrand Cibubur", locationDetail: "Mal Ciputra CitraGrand Cibubur, Kota Bekasi, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima-hypermart-citragran-cibubur-019f1cef-8d55-7215-a343-a9812591cabb" },
+            { id: 52, location: "Jabodetabek", companyName: "Hypermart Cibubur Junction", locationDetail: "Cibubur Junction, Jakarta Timur, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima-tbk-hypermart-cibubur-junction-019f214f-a7cf-73ec-bd6d-cf5712c2e00b" },
+            { id: 53, location: "Kalimantan", companyName: "Foodmart E-walk Balikpapan", locationDetail: "E-Walk Balikpapan, Kota Balikpapan, Kalimantan Timur", brandType: "Foodmart", badgeColor: "bg-green-50 text-green-700 border-green-200", logoPath: "assets/images/foodmart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-foodmart-balikpapan--019f2306-6144-700c-a635-bccac2c34a11" },
+            { id: 54, location: "Head Office (Tangerang)", companyName: "PT Matahari Putra Prima Tbk", locationDetail: "Cyberpark Karawaci, Kota Tangerang, Banten", brandType: "Corporate", badgeColor: "bg-red-50 text-mppaRed border-red-200", logoPath: "assets/images/mppa putih.png", isCorporate: true, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt-matahari-putra-prima-3ae77275-910e-4fcf-b74b-7e66e35bb2eb?page=1" },
+            { id: 55, location: "Jabodetabek", companyName: "Hypermart Pejaten", locationDetail: "Pejaten Village, Jakarta Selatan, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-pejaten-village-019f2704-c141-70c1-8037-ea9b2013b768" },
+            { id: 56, location: "Sumatera", companyName: "Hyfresh CitiMall Prabumulih", locationDetail: "Citimall Prabumulih, Kota Prabumulih, Sumatera Selatan", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-019f3a3c-3446-70e9-9f71-faaa6f841cb0" },
+            { id: 57, location: "Sumatera", companyName: "Hypermart Mandau City Duri", locationDetail: "Mall Mandau City, Kabupaten Bengkalis, Riau", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-019f3a49-c8bf-720f-b3d2-93d220398a14" },
+            { id: 58, location: "Sumatera", companyName: "Hypermart Lahat", locationDetail: "Citimall Lahat, Kabupaten Lahat, Sumatera Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-42cab96b-0f23-4d1c-a7f6-b669a5f891a9" },
+            { id: 59, location: "Jabodetabek", companyName: "Hypermart Pesona Square Depok", locationDetail: "Pesona Square, Kota Depok, Jawa Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-590c9451-6299-4058-a30f-e9b1dba7f179" },
+            { id: 60, location: "Sumatera", companyName: "Hypermart Basko City Mall", locationDetail: "Basko City Mall, Kota Padang, Sumatera Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-569f3aa8-b8ca-47f5-9595-6c1f02512b9f" },
+            { id: 61, location: "Sulawesi", companyName: "Hypermart Maleo Town Square", locationDetail: "Maleo Town Square, Kabupaten Mamuju, Sulawesi Barat", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-e2d847a4-8b31-4827-90e6-ae7879614bfd" },
+            { id: 62, location: "Sulawesi", companyName: "Hypermart Bone", locationDetail: "Jl. Andalas, Kabupaten Bone, Sulawesi Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/matahari-putra-prima-fce452c6-395f-4fa1-860e-a602575b122a" },
+            { id: 63, location: "Sumatera", companyName: "Hypermart WTC Jambi", locationDetail: "WTC Batanghari, Kota Jambi, Jambi", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-hypermart-wtc-jambi-019f2743-a30b-729c-86bd-02fdf140f844" },
+            { id: 64, location: "Jabodetabek", companyName: "Primo Maxx Box", locationDetail: "Maxx Box Lippo Village, Kabupaten Tangerang, Banten", brandType: "Primo", badgeColor: "bg-amber-50 text-amber-700 border-amber-200", logoPath: "assets/images/primo.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,-tbk-primo-maxx-box-612-5cc56af2-d55b-4670-8082-c36bfd94dd19" },
+            { id: 65, location: "Sumatera", companyName: "Foodmart Palembang Indah Mall", locationDetail: "Palembang Indah Mall, Kota Palembang, Sumatera Selatan", brandType: "Foodmart", badgeColor: "bg-green-50 text-green-700 border-green-200", logoPath: "assets/images/foodmart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.-matahari-putra-prima,tbk-foodmart-palembang-indah-mall-019f2c01-cdbe-731a-bd78-5ff48ae72b24" },
+            { id: 66, location: "Sumatera", companyName: "Hypermart Citimall Baturaja", locationDetail: "Citimall Baturaja, Kabupaten Ogan Komering Ulu, Sumatera Selatan", brandType: "Hypermart", badgeColor: "bg-yellow-50 text-yellow-700 border-yellow-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "https://maganghub.kemnaker.go.id/magang-nasional/penyelenggara/pt.matahari-putra-prima--hypermart-citimall-baturaja--019f2772-dd73-7027-a8b1-e4fcb4cee901" },
+            { id: 67, location: "Jabodetabek", companyName: "Hypermart Semanggi", locationDetail: "Plaza Semanggi, Jakarta Selatan, DKI Jakarta", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 68, location: "NTB", companyName: "Hypermart Lombok Epicentrum", locationDetail: "Lombok Epicentrum Mall, Kota Mataram, Nusa Tenggara Barat", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 69, location: "Jawa Timur", companyName: "Hypermart Lippo Plaza Sidoarjo", locationDetail: "Lippo Plaza Sidoarjo, Kabupaten Sidoarjo, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 70, location: "Jawa Timur", companyName: "Hyfresh Blitar Square", locationDetail: "Blitar Square, Kota Blitar, Jawa Timur", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "" },
+            { id: 71, location: "Jawa Timur", companyName: "Hyfresh Bondowoso", locationDetail: "Jl. Ahmad Yani, Kabupaten Bondowoso, Jawa Timur", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "" },
+            { id: 72, location: "Jawa Tengah & DIY", companyName: "Hypermart Pakuwon Mall Solo", locationDetail: "Pakuwon Mall Solo Baru, Kabupaten Sukoharjo, Jawa Tengah", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 73, location: "Jawa Tengah & DIY", companyName: "Hypermart Jogja City Mall", locationDetail: "Jogja City Mall, Kabupaten Sleman, DI Yogyakarta", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 74, location: "Jawa Timur", companyName: "Hypermart Ponorogo City Center", locationDetail: "Ponorogo City Center, Kabupaten Ponorogo, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 75, location: "Jawa Timur", companyName: "Hypermart Lippo Plaza Batu", locationDetail: "Lippo Plaza Batu, Kota Batu, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 76, location: "Jawa Timur", companyName: "Hypermart Malang Town Square", locationDetail: "Malang Town Square, Kota Malang, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 77, location: "Jawa Tengah & DIY", companyName: "Hypermart Paragon City Semarang", locationDetail: "Paragon City Mall, Kota Semarang, Jawa Tengah", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" },
+            { id: 78, location: "Bali", companyName: "Primo Level 21", locationDetail: "Level 21 Mall, Kota Denpasar, Bali", brandType: "Primo", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/primo.png", isCorporate: false, applyUrl: "" },
+            { id: 79, location: "Jabodetabek", companyName: "Hyfresh Meikarta", locationDetail: "Grand Meikarta Distrik 1, Kabupaten Bekasi, Jawa Barat", brandType: "Hyfresh", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hyfresh.png", isCorporate: false, applyUrl: "" },
+            { id: 80, location: "Jawa Timur", companyName: "Hypermart Ciputra World Surabaya", locationDetail: "Ciputra World Surabaya, Kota Surabaya, Jawa Timur", brandType: "Hypermart", badgeColor: "bg-blue-50 text-blue-700 border-blue-200", logoPath: "assets/images/hypermart.png", isCorporate: false, applyUrl: "" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const locationSelect = document.getElementById("locationFilter");
+            const resultsContainer = document.getElementById("resultsContainer");
+            const emptyState = document.getElementById("emptyState");
+            const jobsList = document.getElementById("jobsList");
+
+            const uniqueLocations = [...new Set(internshipData.map(item => item.location))].sort((a,b) => a === "Head Office (Tangerang)" ? -1 : b === "Head Office (Tangerang)" ? 1 : a.localeCompare(b, "id"));
+
+            uniqueLocations.forEach(loc => {
+                const option = document.createElement("option");
+                option.value = loc;
+                option.textContent = loc;
+                locationSelect.appendChild(option);
+            });
+
+            locationSelect.addEventListener("change", (e) => {
+                const selectedLocation = e.target.value;
+                const filteredJobs = internshipData.filter(item => item.location === selectedLocation);
+
+                if (filteredJobs.length > 0) {
+                    emptyState.classList.add("hidden");
+                    resultsContainer.classList.remove("hidden");
+
+                    jobsList.innerHTML = filteredJobs.map(job => {
+                        const mapsQuery = job.isCorporate ? "Cyberpark Karawaci, Kota Tangerang, Banten" : `${job.companyName}, ${job.locationDetail}`;
+                        const mapsUrl = job.isCorporate ? "https://maps.app.goo.gl/mioB7W4Kn5jqwmjz8" : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
+                        return `
+                        <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" aria-label="Buka Google Maps untuk ${job.companyName}" 
+                           class="group bg-white border border-gray-200 hover:border-mppaBlue rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-4">
+                            <div class="w-[100px] h-[100px] min-w-[100px] min-h-[100px] ${job.isCorporate ? 'bg-mppaRed' : 'bg-white'} rounded-xl border border-gray-100 flex items-center justify-center p-2 shadow-sm shrink-0">
+                                <img src="${job.logoPath}" alt="${job.brandType}" class="max-h-full max-w-full object-contain">
+                            </div>
+                            <div class="flex-grow min-w-0">
+                                <h4 class="font-bold text-gray-800 text-sm sm:text-base break-words group-hover:text-mppaBlue transition mb-1">
+                                    ${job.companyName}
+                                </h4>
+                                <p class="text-xs sm:text-sm text-gray-500 flex items-start gap-1">
+                                    <i class="fa-solid fa-map-pin text-mppaRed shrink-0 mt-0.5"></i>
+                                    <span>${job.locationDetail}</span>
+                                </p>
+                            </div>
+                        </a>
+                    `;
+                    }).join("");
+                } else {
+                    emptyState.classList.add("hidden");
+                    resultsContainer.classList.remove("hidden");
+                    jobsList.innerHTML = `
+                        <div class="col-span-full text-center py-8 text-gray-400 text-sm">
+                            Belum ada lokasi penempatan untuk wilayah <strong>${selectedLocation}</strong> saat ini.
+                        </div>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
